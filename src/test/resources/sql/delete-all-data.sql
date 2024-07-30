@@ -1,2 +1,2 @@
-delete from users;
 delete from posts;
+delete from users;
