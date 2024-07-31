@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.dto.PostCreateDto;
-import com.example.demo.model.dto.PostUpdateDto;
-import com.example.demo.repository.PostEntity;
+import com.example.demo.post.domain.PostCreate;
+import com.example.demo.post.domain.PostUpdate;
+import com.example.demo.post.infrastructure.PostEntity;
+import com.example.demo.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +11,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @SqlGroup({
@@ -39,13 +39,13 @@ class PostServiceTest {
 
         //given
 
-        PostCreateDto postCreateDto = PostCreateDto.builder()
+        PostCreate postCreate = PostCreate.builder()
                 .writerId(2)
                 .content("테스트게시물")
                 .build();
 
         //when
-        PostEntity post = postService.create(postCreateDto);
+        PostEntity post = postService.create(postCreate);
 
         //then
         assertThat(post.getId()).isNotNull();
@@ -59,12 +59,12 @@ class PostServiceTest {
     void update() {
 
         //given
-        PostUpdateDto postUpdateDto = PostUpdateDto.builder().content("업데이트").build();
+        PostUpdate postUpdate = PostUpdate.builder().content("업데이트").build();
 
 
         //when
 
-        postService.update(2, postUpdateDto);
+        postService.update(2, postUpdate);
 
         //then
 
