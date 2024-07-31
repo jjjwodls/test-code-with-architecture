@@ -1,8 +1,6 @@
 package com.example.demo.user.infrastructure;
 
 import com.example.demo.user.domain.UserStatus;
-import com.example.demo.user.infrastructure.UserEntity;
-import com.example.demo.user.infrastructure.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Sql("/sql/user-repository-test-data.sql")
-class UserRepositoryTest {
+class UserJpaRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
 
     @Test
@@ -26,7 +24,7 @@ class UserRepositoryTest {
         //given
 
         //when
-        Optional<UserEntity> result = userRepository.findByIdAndStatus(1,UserStatus.ACTIVE);
+        Optional<UserEntity> result = userJpaRepository.findByIdAndStatus(1,UserStatus.ACTIVE);
 
         //then
         assertThat(result.isPresent()).isTrue();
@@ -40,7 +38,7 @@ class UserRepositoryTest {
 
 
         //when
-        Optional<UserEntity> result = userRepository.findByIdAndStatus(1,UserStatus.INACTIVE);
+        Optional<UserEntity> result = userJpaRepository.findByIdAndStatus(1,UserStatus.INACTIVE);
 
         //then
         assertThat(result.isEmpty()).isTrue();
@@ -52,7 +50,7 @@ class UserRepositoryTest {
         //given
 
         //when
-        Optional<UserEntity> result = userRepository.findByEmailAndStatus("test@gmail.com",UserStatus.ACTIVE);
+        Optional<UserEntity> result = userJpaRepository.findByEmailAndStatus("test@gmail.com",UserStatus.ACTIVE);
 
         //then
         assertThat(result.isPresent()).isTrue();
@@ -65,7 +63,7 @@ class UserRepositoryTest {
         //given
 
         //when
-        Optional<UserEntity> result = userRepository.findByEmailAndStatus("test@gmail.com",UserStatus.PENDING);
+        Optional<UserEntity> result = userJpaRepository.findByEmailAndStatus("test@gmail.com",UserStatus.PENDING);
 
         //then
         assertThat(result.isEmpty()).isTrue();
