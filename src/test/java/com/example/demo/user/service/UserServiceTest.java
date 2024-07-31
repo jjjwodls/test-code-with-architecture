@@ -2,6 +2,7 @@ package com.example.demo.user.service;
 
 import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
+import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserUpdate;
@@ -41,7 +42,7 @@ class UserServiceTest {
 
         //when
 
-        UserEntity user = userService.getByEmail(email);
+        User user = userService.getByEmail(email);
 
         assertThat(user.getNickname()).isEqualTo("nickname");
 
@@ -57,7 +58,7 @@ class UserServiceTest {
 
         //then
         assertThatThrownBy(() -> {
-            UserEntity result = userService.getByEmail(email);
+            User result = userService.getByEmail(email);
         }).isInstanceOf(ResourceNotFoundException.class);
 
     }
@@ -69,7 +70,7 @@ class UserServiceTest {
 
         //when
 
-        UserEntity user = userService.getById(11);
+        User user = userService.getById(11);
 
         assertThat(user.getNickname()).isEqualTo("nickname");
 
@@ -84,7 +85,7 @@ class UserServiceTest {
 
         //then
         assertThatThrownBy(() -> {
-            UserEntity result = userService.getById(22);
+            User result = userService.getById(22);
         }).isInstanceOf(ResourceNotFoundException.class);
 
     }
@@ -102,7 +103,7 @@ class UserServiceTest {
 
         //when
 
-        UserEntity result = userService.create(userCreate);
+        User result = userService.create(userCreate);
 
         //then
         assertThat(result.getId()).isNotNull();
@@ -124,7 +125,7 @@ class UserServiceTest {
         userService.update(11, userUpdate);
 
         //then
-        UserEntity user = userService.getById(11);
+        User user = userService.getById(11);
 
         assertThat(user.getId()).isNotNull();
         assertThat(user.getAddress()).isEqualTo("하남");
@@ -141,7 +142,7 @@ class UserServiceTest {
         userService.login(11);
 
         //then
-        UserEntity user = userService.getById(11);
+        User user = userService.getById(11);
         assertThat(user.getLastLoginAt()).isGreaterThan(0L);
 
     }
@@ -155,7 +156,7 @@ class UserServiceTest {
         userService.verifyEmail(22,"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab");
 
         //then
-        UserEntity user = userService.getById(22);
+        User user = userService.getById(22);
         assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
 
     }

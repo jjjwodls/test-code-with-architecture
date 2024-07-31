@@ -1,5 +1,6 @@
 package com.example.demo.post.service;
 
+import com.example.demo.post.domain.Post;
 import com.example.demo.post.domain.PostCreate;
 import com.example.demo.post.domain.PostUpdate;
 import com.example.demo.post.infrastructure.PostEntity;
@@ -26,7 +27,7 @@ class PostServiceTest {
     void getById를_통해_post_data_를_조회할_수_있다() {
         //given
         //when
-        PostEntity post = postService.getById(2);
+        Post post = postService.getById(2);
 
         //then
         assertThat(post.getContent()).isEqualTo("게시물컨텐츠");
@@ -45,7 +46,7 @@ class PostServiceTest {
                 .build();
 
         //when
-        PostEntity post = postService.create(postCreate);
+        Post post = postService.create(postCreate);
 
         //then
         assertThat(post.getId()).isNotNull();
@@ -68,7 +69,7 @@ class PostServiceTest {
 
         //then
 
-        PostEntity post = postService.getById(2);
+        Post post = postService.getById(2);
         assertThat(post.getContent()).isEqualTo("업데이트");
         assertThat(post.getModifiedAt()).isGreaterThan(0);
     }
